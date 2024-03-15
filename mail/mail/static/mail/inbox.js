@@ -27,7 +27,6 @@ function compose_email() {
 
 
 function load_mailbox(mailbox) {
-  
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'block';
   document.querySelector('#compose-view').style.display = 'none';
@@ -128,7 +127,11 @@ function addArchive(id){
         archived: true
     })
   })
-  load_mailbox('inbox');
+  .then(result => {
+    // Print result
+    console.log(result);
+    load_mailbox('inbox');
+});  
 }
 
 function removeArchive(id){
@@ -139,5 +142,9 @@ function removeArchive(id){
         archived: false
     })
   })
-  load_mailbox('inbox');
+  .then(result => {
+    // Print result
+    console.log(result);
+    load_mailbox('inbox');
+});
 }
