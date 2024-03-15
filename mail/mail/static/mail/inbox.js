@@ -28,9 +28,10 @@ function compose_email() {
 
 function load_mailbox(mailbox) {
   // Show the mailbox and hide other views
-  document.querySelector('#emails-view').style.display = 'block';
+  document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#single-view').style.display = 'none';
+  document.querySelector('#emails-view').innerHTML = '';
 
   // Show the mailbox name
   document.querySelector('#emails-view').innerHTML = `<h3>${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}</h3>`;
@@ -38,20 +39,19 @@ function load_mailbox(mailbox) {
   fetch(`/emails/${mailbox}`)
   .then(response => response.json())
   .then(emails => {
-      // Print emails
-      console.log(emails);
-      // ... do something else with emails ...
-      emails.forEach(email => {
+      emails.forEach(oneemail => {
+        console.log(oneemail);
         const singleEmail = document.createElement('div');
-        if (email.read == false) {
-          singleEmail.innerHTML = `<p style="border: solid;">From: ${email.sender} Subject: ${email.subject} at: ${email.timestamp}</p>`;
-        } else {
-          singleEmail.innerHTML = `<p style="border: solid; background-color: gray;">From: ${email.sender} Subject: ${email.subject} at: ${email.timestamp}</p>`;
+        singleEmail.addEventListener('click', () => openSingle(oneemail, mailbox));
+        if (oneemail.read == false) {
+          singleEmail.innerHTML = `<p style="border: solid;">From: ${oneemail.sender} Subject: ${oneemail.subject} at: ${oneemail.timestamp}</p>`;
+        } else{
+          singleEmail.innerHTML = `<p style="border: solid; background-color: gray;">From: ${oneemail.sender} Subject: ${oneemail.subject} at: ${oneemail.timestamp}</p>`;
         }
-        document.querySelector('#emails-view').append(singleEmail);
-        singleEmail.addEventListener('click', () => openSingle(email.id, mailbox));
+        document.querySelector('#emails-view').appendChild(singleEmail);
       });
   });
+  document.querySelector('#emails-view').style.display = 'block';
 }
 
 
@@ -77,32 +77,29 @@ function sendMail(event){
 }
 
 
-function openSingle(id, mailbox){
+function openSingle(email, mailbox){
   console.log(mailbox);
-  console.log(id);
+  console.log(email);
+  console.log(email.id);
+  if (email.read === false){
+    fetch(`/emails/${email.id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          read: true
+      })
+    })
+  }
   // Show the mailbox and hide other views
   document.querySelector('#emails-view').style.display = 'none';
   document.querySelector('#compose-view').style.display = 'none';
   document.querySelector('#single-view').style.display = 'block';
 
-  fetch(`/emails/${id}`)
-  .then(response => response.json())
-  .then(email => {
-      // Print email
-      console.log(email);
-      // ... do something else with email ...
-      document.querySelector('#single-from').innerHTML = email.sender;
-      document.querySelector('#single-to').innerHTML = email.recipients;
-      document.querySelector('#single-subject').innerHTML = email.subject;
-      document.querySelector('#single-time').innerHTML = email.timestamp;
-      document.querySelector('#single-body').innerHTML = email.body;
-  });
-  fetch(`/emails/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify({
-        read: true
-    })
-  })
+  document.querySelector('#single-from').innerHTML = email.sender;
+  document.querySelector('#single-to').innerHTML = email.recipients;
+  document.querySelector('#single-subject').innerHTML = email.subject;
+  document.querySelector('#single-time').innerHTML = email.timestamp;
+  document.querySelector('#single-body').innerHTML = email.body;
+
   if (mailbox === 'inbox'){
     document.querySelector('#addArchive').style.display = 'block';
     document.querySelector('#removeArchive').style.display = 'none';
@@ -114,37 +111,34 @@ function openSingle(id, mailbox){
     document.querySelector('#removeArchive').style.display = 'none';
   }
   // archiving$unarchiving
-  document.querySelector('#addArchive').addEventListener('click', () => addArchive(id));
-  document.querySelector('#removeArchive').addEventListener('click', () => removeArchive(id));
+  document.querySelector('#addArchive').addEventListener('click', () => addArchive(email));
+  document.querySelector('#removeArchive').addEventListener('click', () => removeArchive(email));
 }
 
 
-function addArchive(id){
-  console.log(id);
-  fetch(`/emails/${id}`, {
+function addArchive(email){
+  fetch(`/emails/${email.id}`, {
     method: 'PUT',
     body: JSON.stringify({
         archived: true
     })
   })
-  .then(result => {
+  .then(() => {
     // Print result
-    console.log(result);
     load_mailbox('inbox');
 });  
 }
 
-function removeArchive(id){
-  console.log(id);
-  fetch(`/emails/${id}`, {
+
+function removeArchive(email){
+  fetch(`/emails/${email.id}`, {
     method: 'PUT',
     body: JSON.stringify({
         archived: false
     })
   })
-  .then(result => {
+  .then(() => {
     // Print result
-    console.log(result);
     load_mailbox('inbox');
 });
 }
