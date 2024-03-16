@@ -36,9 +36,28 @@
         <strong>From: <span id="single-from" style="font-weight: normal;"></span></strong><br>
         <strong>To: <span id="single-to" style="font-weight: normal;"></span></strong><br>
         <strong>Subject: <span id="single-subject" style="font-weight: normal;"></span></strong><br>
-        <strong>Time: <span id="single-time" style="font-weight: normal;"></span></strong><hr>
+        <strong>Time: <span id="single-time" style="font-weight: normal;"></span></strong><br>
+        <button class="btn btn-sm btn-outline-warning" id="replybutton">Reply</button><hr>
         <p id="single-body"></p>
     </div>
+
+    <div id="reply-view">
+        <h3>Reply Email</h3>
+        <form id="reply-form">
+            <div class="form-group">
+                From: <input disabled class="form-control" value="{{ request.user.email }}">
+            </div>
+            <div class="form-group">
+                To: <input id="reply-recipients" class="form-control">
+            </div>
+            <div class="form-group">
+                <input class="form-control" id="reply-subject">
+            </div>
+            <textarea class="form-control" id="reply-body"></textarea>
+            <input type="submit" class="btn btn-primary"/>
+        </form>
+    </div>
+
 {% endblock %}
 
 {% block script %}
