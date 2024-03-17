@@ -1,3 +1,21 @@
 textarea {
-    min-height: 400px;
+    min-height: 300px;
+}
+
+body {
+    margin-top: 20px;
+    background-color: #efeee8;
+    background-image: url('mail-bg.png');
+    background-size: 300px auto;
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-attachment: fixed;
+}
+
+.container {
+    z-index: 1;
+}
+
+.header {
+    height: 90px;
 }

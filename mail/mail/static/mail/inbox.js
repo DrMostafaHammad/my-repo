@@ -42,9 +42,9 @@ function load_mailbox(mailbox) {
     emails.forEach(oneemail => {
       const singleEmail = document.createElement('div');
       if (oneemail.read == false) {
-        singleEmail.innerHTML = `<p style="border: solid;">From: ${oneemail.sender} Subject: ${oneemail.subject} at: ${oneemail.timestamp}</p>`;
+        singleEmail.innerHTML = `<p style="border: solid; background-color: #FFFFFF">From: ${oneemail.sender} Subject: ${oneemail.subject} at: ${oneemail.timestamp}</p>`;
       } else{
-        singleEmail.innerHTML = `<p style="border: solid; background-color: gray;">From: ${oneemail.sender} Subject: ${oneemail.subject} at: ${oneemail.timestamp}</p>`;
+        singleEmail.innerHTML = `<p style="border: solid; background-color: #d3d3d3;">From: ${oneemail.sender} Subject: ${oneemail.subject} at: ${oneemail.timestamp}</p>`;
       }
       document.querySelector('#emails-view').appendChild(singleEmail);
       singleEmail.addEventListener('click', () => openSingle(oneemail, mailbox));
