@@ -9,7 +9,7 @@
         <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
         <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
         <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
-        <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
+        <a class="btn btn-sm btn-outline-danger" href="{% url 'logout' %}">Log Out</a>
     </div>
     <hr>
 
@@ -39,7 +39,7 @@
         <strong>To: <span id="single-to" style="font-weight: normal;"></span></strong><br>
         <strong>Subject: <span id="single-subject" style="font-weight: normal;"></span></strong><br>
         <strong>Time: <span id="single-time" style="font-weight: normal;"></span></strong><br>
-        <button class="btn btn-sm btn-outline-warning" id="replybutton">Reply</button><hr>
+        <button class="btn btn-sm btn-warning" id="replybutton">Reply</button><hr>
         <textarea class="form-control" id="single-body" readonly="readonly"></textarea>
     </div>
 
