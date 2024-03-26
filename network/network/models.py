@@ -11,7 +11,6 @@ class Post(models.Model):
     postcontent = models.TextField(blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     likescount = models.IntegerField(default=0)
-    liked = models.BooleanField(default=False)
 
 
 class Followers(models.Model):
@@ -25,9 +24,9 @@ class Following(models.Model):
 
 
 
-# class Likes(models.Model):
-#     liker = models.ForeignKey("User", on_delete=models.CASCADE)
-#     post = models.ForeignKey("Post", on_delete=models.CASCADE)
-#     liked = models.BooleanField(default=False)
+class Likes(models.Model):
+    liker = models.ForeignKey("User", on_delete=models.CASCADE)
+    post = models.ForeignKey("Post", on_delete=models.CASCADE)
+    liked = models.BooleanField(default=False)
     
 
