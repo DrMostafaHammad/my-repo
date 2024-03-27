@@ -14,12 +14,13 @@ class Post(models.Model):
     likescount = models.PositiveIntegerField(default=0)
 
 
-class Followers(models.Model):
-    userbeingfollowed = models.ForeignKey("User", on_delete=models.CASCADE, related_name="userbfollowed")
-    followers = models.ManyToManyField("User", related_name="followers")
+# class Followers(models.Model):
+#     userbeingfollowed = models.ForeignKey("User", on_delete=models.CASCADE, related_name="userbfollowed")
+#     followers = models.ManyToManyField("User", related_name="followers")
 
 
 class Following(models.Model):
+    # check django m2m.add() or video on youtube
     userfollowing = models.ForeignKey("User", on_delete=models.CASCADE, related_name="usrfollowing")
     followeesbeingfollowed = models.ManyToManyField("User", related_name="followees")
 
