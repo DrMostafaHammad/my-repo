@@ -29,11 +29,13 @@ def run():
         # f.save()
         # print(f)
 
-    # identify user, get users is, filter following table with follower's id, print results
-        # mos = User.objects.get(username='mostafa')
+    # identify user, get users id, filter following table with follower's id, print results. you can get followres and following from here
+        # mos = User.objects.get(username='raw3a')
         # mosid = mos.id
         # print(mosid)
         # f = Following.objects.filter(follower_id=mosid)
         # for s in f:
         #     print(s)
-    pass
+        # print(f.count())
+    posts = Post.objects.all()
+    print(posts)

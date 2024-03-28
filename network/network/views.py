@@ -6,7 +6,7 @@ from django.urls import reverse
 # to add datetime stamp to a post, use timezone.now()
 from django.utils import timezone
 
-from .models import User
+from .models import *
 
 
 def index(request):
@@ -63,3 +63,19 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "network/register.html")
+
+
+def newpost(request):
+    if request.method == "POST":
+        postcontent = request.POST["postcontent"]
+        author = int(request.user.id)
+        timestamp = timezone.now()
+        post = Post()
+        post.author = User.objects.get(id=author)
+        post.postcontent = postcontent
+        post.timestamp = timestamp
+        post.save()
+        return HttpResponseRedirect(reverse("index"))
+
+    else:
+        return render(request, "network/newpost.html")

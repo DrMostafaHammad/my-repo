@@ -8,7 +8,7 @@ class User(AbstractUser):
 
 class Post(models.Model):
     author = models.ForeignKey("User", on_delete=models.CASCADE, related_name="creator")
-    postcontent = models.TextField(blank=False, editable=True, default='')
+    postcontent = models.TextField(blank=False, editable=True)
     timestamp = models.DateTimeField(auto_now_add=True)
     # get likes count from Likes model / or try likescount = Post.objects.filter(post_id=post_id), likescount.liked_set.all().count or put () around whats before count, or use related name likescount.total_likes.all().count
     wholiked = models.ManyToManyField("User", blank=True)

@@ -1,0 +1,15 @@
+body {
+    background-image: url('backgraf.png');
+    background-size: cover;
+}
+
+.custom-form {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+#newposthead {
+    color: white;
+}
